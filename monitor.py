@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from mailersend import MailerSendClient, EmailBuilder
 
 # --- CONFIG ---
-TARGET_URL = "https://in.bookmyshow.com/buytickets/dhurandhar-the-revenge-bengaluru/movie-bang-ET00478890-MT/20260327"
+TARGET_URL = "https://in.bookmyshow.com/buytickets/dhurandhar-the-revenge-bengaluru/movie-bang-ET00478890-MT/20260326"
 VENUE_NAME = "PVR: VR Bengaluru"
 RECIPIENT_EMAIL = "khetanmehul@gmail.com"
 
