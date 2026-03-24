@@ -2,9 +2,8 @@ name: BMS Ticket Monitor
 
 on:
   schedule:
-    # Runs every 10 minutes
     - cron: '*/10 * * * *'
-  workflow_dispatch: # Allows you to run it manually to test
+  workflow_dispatch:
 
 jobs:
   check-tickets:
@@ -20,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install selenium webdriver-manager
+          pip install selenium webdriver-manager mailersend
 
       - name: Run monitor script
         run: python monitor.py
