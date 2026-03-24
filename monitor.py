@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from mailersend import emails
+from mailersend import MailerSendClient, EmailBuilder
 
 # --- CONFIG ---
 TARGET_URL = "https://in.bookmyshow.com/buytickets/dhurandhar-the-revenge-bengaluru/movie-bang-ET00478890-MT/20260327"
@@ -12,33 +12,17 @@ VENUE_NAME = "PVR: VR Bengaluru"
 RECIPIENT_EMAIL = "khetanmehul@gmail.com"
 
 def send_alert_email():
-    # MailerSend Initialization using the official SDK pattern
-    mailer = emails.NewEmail('mlsn.0ff401e8371ab2787f39f36f27efe619adda2d11607824e9b1748fa0949aeb56')
+    ms = MailerSendClient("mlsn.0ff401e8371ab2787f39f36f27efe619adda2d11607824e9b1748fa0949aeb56")
 
-    # Define the sender (Must be a domain verified in your MailerSend dashboard)
-    mail_from = {
-        "name": "BMS Monitor",
-        "email": 'MS_Lr507l@test-eqvygm0wqmdl0p7w.mlsender.net',
-    }
+    email = (EmailBuilder()
+            .from_email("MS_Lr507l@test-eqvygm0wqmdl0p7w.mlsender.net", "Harshit Khetan")
+            .to_many([{"email": RECIPIENT_EMAIL, "name": "Recipient"}])
+            .subject(f"🔥 TICKETS LIVE: {VENUE_NAME}")
+            .html(f"Dhurandhar: The Revenge shows for March 27th are now listed at {VENUE_NAME}. <br><br><b>Book Now:</b> <a href='{TARGET_URL}'>Click Here</a>")
+            .build())
 
-    # Define the recipient
-    recipients = [
-        {
-            "name": "Mehul Khetan",
-            "email": RECIPIENT_EMAIL,
-        }
-    ]
-
-    subject = f"🔥 TICKETS LIVE: {VENUE_NAME}"
-    content = f"Dhurandhar: The Revenge shows for March 27th are now listed at {VENUE_NAME}. <br><br><b>Book Now:</b> <a href='{TARGET_URL}'>Click Here</a>"
-
-    mailer.set_mail_from(mail_from, recipients)
-    mailer.set_subject(subject)
-    mailer.set_html_content(content)
-    mailer.set_plaintext_content(f"Tickets for {VENUE_NAME} are LIVE! Book here: {TARGET_URL}")
-
-    response = mailer.send()
-    print(f"Email sent successfully. Response: {response}")
+    response = ms.emails.send(email)
+    print(f"Email sent: {response.message_id}")
 
 def check_tickets():
     options = Options()
