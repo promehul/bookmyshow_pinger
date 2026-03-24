@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from mailersend import MailerSendClient, EmailBuilder
 
 # --- CONFIG ---
-TARGET_URL = "https://in.bookmyshow.com/buytickets/dhurandhar-the-revenge-bengaluru/movie-bang-ET00478890-MT/20260326"
+TARGET_URL = "https://in.bookmyshow.com/buytickets/dhurandhar-the-revenge-bengaluru/movie-bang-ET00478890-MT/20260327"
 VENUE_NAME = "PVR: VR Bengaluru"
 RECIPIENT_EMAIL = "khetanmehul@gmail.com"
 
@@ -16,13 +16,13 @@ def send_alert_email():
 
     email = (EmailBuilder()
             .from_email("MS_Lr507l@test-eqvygm0wqmdl0p7w.mlsender.net", "Harshit Khetan")
-            .to_many([{"email": RECIPIENT_EMAIL, "name": "Recipient"}])
+            .to_many([{"email": RECIPIENT_EMAIL, "name": "Recipient"}, {"email": "suyashsinha1999@gmail.com", "name": "Recipient"}, {"email": "avibyahut@gmail.com", "name": "Recipient"}])
             .subject(f"🔥 TICKETS LIVE: {VENUE_NAME}")
             .html(f"Dhurandhar: The Revenge shows for March 27th are now listed at {VENUE_NAME}. <br><br><b>Book Now:</b> <a href='{TARGET_URL}'>Click Here</a>")
             .build())
 
     response = ms.emails.send(email)
-    print(f"Email sent: {response.message_id}")
+    print(f"Email sent: {response}")
 
 def check_tickets():
     options = Options()
